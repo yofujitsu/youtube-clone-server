@@ -1,0 +1,9 @@
+.contentUnit:hover {
+    transition: .2s;
+    transform: scale(1.02);
+}
+
+.contentUnit-link {
+    color: #000 !important;
+    text-decoration: none;
+}
