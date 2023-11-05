@@ -35,17 +35,21 @@ public class ContentUnitService {
         return contentUnitRepository.findAll();
     }
 
-    public void saveContentUnit(Principal principal, ContentUnit contentUnit, MultipartFile file1) throws IOException {
+    public List<ContentUnit> listContentUnits(Long user_id) {
+        if (user_id != null) {
+            return contentUnitRepository.findByUserId(user_id);
+        }
+        return contentUnitRepository.findAll();
+    }
+
+    public void saveContentUnit(Principal principal, ContentUnit contentUnit, String url){
         contentUnit.setUser(getUserByPrincipal(principal));
         Video video1;
-        if (file1.getSize() != 0) {
-            video1 = toVideoEntity(file1);
-            videoRepository.save(video1);
-            contentUnit.addVideoToContent(video1);
-        }
+        video1 = toVideoEntity(url);
+        videoRepository.save(video1);
+        contentUnit.addVideoToContent(video1);
         log.info("Saving new ContentUnit. Title: {}; Email: {}", contentUnit.getTitle(), contentUnit.getUser().getEmail());
         ContentUnit contentUnitFromDB = (ContentUnit) contentUnitRepository.save(contentUnit);
-        contentUnitFromDB.setPreviewVideoId(contentUnitFromDB.getVideo().getId());
         contentUnitRepository.save(contentUnit);
     }
 
@@ -54,15 +58,10 @@ public class ContentUnitService {
         return userRepository.findByEmail(principal.getName());
     }
 
-    private Video toVideoEntity(MultipartFile file) throws IOException {
+    private Video toVideoEntity(String url){
         Video video = new Video();
-        video.setName(file.getName());
-        video.setOriginalFileName(file.getOriginalFilename());
-        video.setContentType(file.getContentType());
-        video.setSize(file.getSize());
-        video.setBytes(file.getBytes());
+        video.setUrl(url);
         return video;
-
     }
 
     public void deleteContentUnit(Long id) {
@@ -73,6 +72,12 @@ public class ContentUnitService {
         }
     }
 
+    public void likeContentUnit(Long id) {
+        ContentUnit contentUnit = contentUnitRepository.findById(id)
+                .orElse(null);
+        contentUnit.setLikes(contentUnit.getLikes() + 1);
+        contentUnitRepository.save(contentUnit);
+    }
 
     public ContentUnit getContentUnitById(Long id) {
         return contentUnitRepository.findById(id).orElse(null);

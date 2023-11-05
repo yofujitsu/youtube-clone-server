@@ -8,17 +8,14 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "videofiles")
+@Table(name = "videos")
 public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String originalFileName;
-    private Long size;
-    private String contentType;
-    @Lob
-    private byte[] bytes;
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @Column(length = 10000)
+    private String url;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "content_unit_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_video_content_unit"))
     private ContentUnit contentUnit;
 }

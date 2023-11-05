@@ -1,6 +1,6 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
-    <h1 style="text-align: center">Youtube 2.0</h1><hr>
+    <h2 style="text-align: center">Youtube 2.0 - Новый видеохостинг</h2><hr>
     <div id="carouselExampleIndicators" class="carousel slide">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -25,5 +25,4 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <hr>
 </@t.template>

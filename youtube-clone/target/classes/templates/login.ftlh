@@ -4,19 +4,16 @@
     <form action="/login " method="post">
         <div class="form-group">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Электронная почта</label>
-                <input type="email" class="form-control" <#if RequestParameters.error??>is-invalid</#if> id="exampleFormControlInput1" name="username" placeholder="name@example.com">
+                <label for="exampleFormControlInput1" class="form-label text-white">Электронная почта</label>
+                <input type="email" class="form-control bg-dark text-white outline-danger" <#if RequestParameters.error??>is-invalid</#if> id="exampleFormControlInput1" name="username" placeholder="Ваша почта">
             </div>
             <div id="email" class="invalid-feedback">
                 Неверная электронная почта
             </div>
         </div>
         <div class="form-group">
-            <label for="inputPassword5" class="form-label">Пароль</label>
-            <input type="password" <#if RequestParameters.error??>is-invalid</#if> id="inputPassword5" name="password" class="form-control" aria-labelledby="passwordHelpBlock">
-            <div id="passwordHelpBlock" class="form-text">
-                Ваш пароль должен состоять из 8-20 символов, содержать буквы и цифры и не должен содержать пробелов, специальных символов или эмодзи.
-            </div>
+            <label for="inputPassword5" class="form-label text-white">Пароль</label>
+            <input type="password" <#if RequestParameters.error??>is-invalid</#if> id="inputPassword5" name="password" class="form-control bg-dark text-white outline-danger" aria-labelledby="passwordHelpBlock" placeholder="Пароль">
             <div id="passwordHelpBlock" class="invalid-feedback">
                 Неверный пароль
             </div>
@@ -26,5 +23,5 @@
         <button type="submit" style="width: 100%" class="btn btn-danger">Войти</button>
     </form>
     <hr>
-    <h5>Заходите впервые? <a href="/register" style="text-decoration: darkred">Зарегистрируйся!</a></h5>
+    <h5>Заходите впервые? <a href="/register" style="text-decoration: none">Зарегистрируйся!</a></h5>
 </@t.template>

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ContentUnitRepository extends JpaRepository<ContentUnit, Long> {
     List<ContentUnit> findByTitle(String title);
+    List<ContentUnit> findByUserId(Long user_id);
 }

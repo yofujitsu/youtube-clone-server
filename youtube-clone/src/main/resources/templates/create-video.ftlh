@@ -7,22 +7,21 @@
             Создать видео
         </a>
         <div class="collapse mb-3" id="collapseExample" style="">
-            <form action="/contentUnit/create" method="post" enctype="multipart/form-data">
+            <form action="/contentUnit/create" method="post">
                 <div class="form-group">
                     <label for="contentUnitName">Название видео</label>
-                    <input type="text" required class="form-control"
+                    <input type="text" required class="form-control bg-dark text-white outline-danger"
                            id="contentUnitName" name="title">
                 </div>
                 <div class="form-group">
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">Загрузка видео</label>
-                        <input required class="form-control" type="file" id="formFile" name="file1">
-                    </div>
+                    <label for="url">Загрузка видео (Вставьте ссылку)</label>
+                    <input required class="form-control bg-dark text-white outline-danger" id="url" name="url">
                 </div>
                 <div class="form-group">
                     <label for="description">Описание видео</label>
-                    <textarea required class="form-control" id="description" name="description"></textarea>
+                    <textarea required class="form-control bg-dark text-white outline-danger" id="description" name="description"></textarea>
                 </div>
+                <br>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <button type="submit" style="width: 100%" class="btn btn-danger">Опубликовать</button>
             </form>

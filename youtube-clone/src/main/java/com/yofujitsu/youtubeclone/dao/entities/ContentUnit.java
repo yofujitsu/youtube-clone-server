@@ -17,18 +17,19 @@ public class ContentUnit {
     private String title;
     @Column(length = 10000)
     private String description;
-    private Date duration;
     @OneToOne
     private Video video;
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn
     private User user;
-    private Long previewVideoId;
     private LocalDateTime dateOfCreated;
+    private int likes;
 
     @PrePersist
     private void init(){
+
         dateOfCreated = LocalDateTime.now();
+        likes = 0;
     }
 
     public void addVideoToContent(Video video){

@@ -1,6 +1,7 @@
 package com.yofujitsu.youtubeclone.controllers;
 
 import com.yofujitsu.youtubeclone.dao.entities.User;
+import com.yofujitsu.youtubeclone.services.ContentUnitService;
 import com.yofujitsu.youtubeclone.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.security.Principal;
 public class UserController {
     @Autowired
     private final UserService userService;
+    private final ContentUnitService contentUnitService;
 
     @GetMapping("/register")
     public String register(Principal principal, Model model) {
@@ -52,6 +54,7 @@ public class UserController {
                           Model model) {
         User user = userService.getUserByPrincipal(principal);
         model.addAttribute("user", user);
+        model.addAttribute("contentUnits", contentUnitService.listContentUnits(user.getId()));
         return "user-profile";
     }
 }
