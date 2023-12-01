@@ -3,16 +3,27 @@ rschir 5sem backend course work
 ## DONE
 - videos uploading
 - sql schema and tables
-- mvc realization
+- mvc realization (18.09)
+- rest api realization (05.11)
 - video main page
-- user videos in user's profile
-- likes
+- user videos in user's profile (05.11)
+- watches system
 - final front-end
+- remember me token
+- preview images for videos
+- video edit page (02.12)
+
+## FIXED
+- fixed infinite loop when user tries to auth when video already uploaded
+- fixed missing video links
+- fixed content-type for update api
+- fixed watches count system
 
 ## TO-DO (additional)
-- delete videos
+- likes system
 - liked videos on user's page
-- constraint for 1 like per user to video
-![image](https://github.com/yofujitsu/youtube-clone-server/assets/78373273/7b2a8305-3613-47d1-9be1-79c54fbcd000)
-![image](https://github.com/yofujitsu/youtube-clone-server/assets/78373273/40eb0c88-6f85-4e25-a79f-9a744e8188af)
+- main page video sort by filter
+![image](https://github.com/yofujitsu/youtube-clone-server/assets/78373273/d1c377be-4a74-4653-b959-5c7df9eed757)
+![image](https://github.com/yofujitsu/youtube-clone-server/assets/78373273/ac203d64-5262-42e7-abff-c9b5fc1edefd)
+
 
