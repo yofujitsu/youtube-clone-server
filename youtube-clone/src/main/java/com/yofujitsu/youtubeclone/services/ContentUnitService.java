@@ -9,6 +9,7 @@ import com.yofujitsu.youtubeclone.dao.repositories.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -72,10 +73,10 @@ public class ContentUnitService {
         }
     }
 
-    public void likeContentUnit(Long id) {
+    public void watchContentUnit(Long id) {
         ContentUnit contentUnit = contentUnitRepository.findById(id)
                 .orElse(null);
-        contentUnit.setLikes(contentUnit.getLikes() + 1);
+        contentUnit.setWatches(contentUnit.getWatches() + 1);
         contentUnitRepository.save(contentUnit);
     }
 

@@ -18,6 +18,10 @@
                     <input required class="form-control bg-dark text-white outline-danger" id="url" name="url">
                 </div>
                 <div class="form-group">
+                    <label for="thumbnailUrl">Загрузка превью картинки (Вставьте ссылку)</label>
+                    <input required class="form-control bg-dark text-white outline-danger" id="thumbnailUrl" name="thumbnailUrl">
+                </div>
+                <div class="form-group">
                     <label for="description">Описание видео</label>
                     <textarea required class="form-control bg-dark text-white outline-danger" id="description" name="description"></textarea>
                 </div>

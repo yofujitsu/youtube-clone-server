@@ -13,7 +13,7 @@
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
               crossorigin="anonymous">
 
-        <link rel="icon" href="https://www.youtube.com/s/desktop/7ea5dfab/img/favicon.ico">
+        <link rel="icon" href="https://avatars.mds.yandex.net/i?id=639a8f4386132bf73ea0a065bde0ea158b407d33-8899644-images-thumbs&n=13">
         <style>
             body {
                 background-color: #212529;
@@ -33,7 +33,7 @@
     <body>
     <nav class="navbar bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/" style="text-decoration: none; color: #fff">
+            <a class="navbar-brand" href="/youtube" style="text-decoration: none; color: #fff">
                Youtube 2.0
             </a>
             <#if user.email??>

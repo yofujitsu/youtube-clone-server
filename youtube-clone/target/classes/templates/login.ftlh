@@ -23,5 +23,5 @@
         <button type="submit" style="width: 100%" class="btn btn-danger">Войти</button>
     </form>
     <hr>
-    <h5>Заходите впервые? <a href="/register" style="text-decoration: none">Зарегистрируйся!</a></h5>
+    <h5>Заходите впервые? <a href="/register" style="color: red">Зарегистрируйся!</a></h5>
 </@t.template>

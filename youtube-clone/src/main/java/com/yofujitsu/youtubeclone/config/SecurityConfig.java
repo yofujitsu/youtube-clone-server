@@ -23,13 +23,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/contentUnit/**", "/videos/**", "/register", "/user/**", "/static/**", "/youtube/**")
+                .antMatchers("/contentUnit/**", "/videos/**", "/register", "/user/**", "/static/**", "/youtube/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .defaultSuccessUrl("/youtube", true)
                 .permitAll()
+                .and()
+                .rememberMe()
+                .userDetailsService(userDetailsService)
+                .key("f930361a1f0d8048833699e2710310ae")
+                .tokenValiditySeconds(86400) // Настройка срока действия токена (1 день)
                 .and()
                 .logout()
                 .permitAll();

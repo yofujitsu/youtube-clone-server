@@ -9,7 +9,7 @@
         <hr>
         Электронная почта: <b>${user.email}</b>
         <br>
-        Дата регистрации: <b>${user.dateOfCreated}</b>
+        Дата регистрации: <b>${user.dateOfCreated.getDayOfMonth()}-${user.dateOfCreated.getMonthValue()}-${user.dateOfCreated.getYear()}</b>
         <br>
         <hr>
         <#if user.isAdmin()>
@@ -37,9 +37,9 @@
         <#list contentUnits as contentUnit>
             <#if contentUnit.user?exists>
                 <div class="col">
-                    <a href="/contentUnit/${contentUnit.id}" class="contentUnit-link">
+                    <a href="/contentUnit/edit?id=${contentUnit.id}" class="contentUnit-link">
                         <div class="card text-white bg-dark my-1 contentUnit">
-                            <video src="${contentUnit.video.url}" class="object-fit-contain"></video>
+                            <image src="${contentUnit.thumbnailUrl}" class="object-fit-fill"></image>
                             <div class="card-body">
                                 <#assign truncatedTitle = contentUnit.title?substring(0, contentUnit.title?length - 3)?trim>
                                 <h5 class="card-title">
@@ -49,7 +49,7 @@
                                 </h5>
                             </div>
                             <div class="card-footer">
-                                <form action="/contentUnit/delete/${contentUnit.id}" method="post">
+                                <form action="/contentUnit/delete?id=${contentUnit.id}" method="post">
                                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                                     <button type="submit" style="width: 100%" class="btn btn-danger">Удалить</button>
                                 </form>

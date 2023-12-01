@@ -13,16 +13,25 @@
     <div class="row row-cols-1 row-cols-md-4 g-4">
         <#list contentUnits as contentUnit>
             <div class="col">
-                <a href="/contentUnit/${contentUnit.id}" class="contentUnit-link">
+                <a href="/contentUnit?id=${contentUnit.id}" class="contentUnit-link">
                     <div class="card text-white bg-dark my-1 contentUnit">
-                        <video src="${contentUnit.video.url}" class="object-fit-contain"></video>
+                        <image src="${contentUnit.thumbnailUrl}" class="object-fit-fill"></image>
                         <div class="card-body">
-                            <h5 class="card-title">
+                            <h6 class="card-title">
                                     ${contentUnit.title}
-                            </h5>
+                            </h6>
                         </div>
                         <div class="card-footer">
-                            <h8 class="card-description">${contentUnit.user.name}</h8>
+                            <h8 class="card-description">${contentUnit.user.name} |
+                                <#if contentUnit.watches % 10 == 1 && contentUnit.watches % 100 != 11>
+                                ${contentUnit.watches} просмотр
+                            <#elseif contentUnit.watches % 10 < 5 && contentUnit.watches % 10 != 0 && contentUnit.watches % 100 != 12
+                            && contentUnit.watches % 100 != 13 && contentUnit.watches % 100 != 14>
+                                ${contentUnit.watches} просмотра
+                            <#else>
+                                ${contentUnit.watches} просмотров
+                                </#if>
+                                • ${contentUnit.updateDateDesc()}</h8>
                         </div>
                     </div>
                 </a>
