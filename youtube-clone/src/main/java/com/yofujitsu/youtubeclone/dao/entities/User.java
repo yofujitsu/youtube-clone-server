@@ -27,6 +27,17 @@ public class User implements UserDetails {
     private String password;
     private String name;
     private boolean active;
+    private int followersCount;
+    @ManyToMany(mappedBy = "following")
+    private Set<User> followers = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_following",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "following_id")
+    )
+    private Set<User> following = new HashSet<>();
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"))
@@ -43,6 +54,7 @@ public class User implements UserDetails {
 
     @PrePersist
     private void init(){
+        followersCount = 0;
         dateOfCreated = LocalDateTime.now();
     }
 
@@ -110,6 +122,7 @@ public class User implements UserDetails {
                 ", active=" + active +
                 ", roles=" + roles +
                 ", dateOfCreated=" + dateOfCreated +
+                ", followersCount=" + followersCount +
                 '}';
     }
 }

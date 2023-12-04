@@ -8,6 +8,7 @@
                 <hr>
                 <div class="row">
                     <div class="col">
+                        <a href="/profile?id=${contentUnit.user.id}" style="text-decoration: none; color: darkred">${contentUnit.user.name}</a> •
                         ${contentUnit.description} •
                         <#if contentUnit.watches % 10 == 1 && contentUnit.watches % 100 != 11>
                             ${contentUnit.watches} просмотр
@@ -19,15 +20,6 @@
                         </#if>
                         • ${contentUnit.updateDateDesc()}
                     </div>
-                    <#if user.isEnabled()>
-                        <div class="col">
-                            <form action="/contentUnit?id=${contentUnit.id}" method="post">
-                                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                                <button id=likeButton type="submit" style="width: 100%" class="btn btn-danger">Мне нравится</button>
-                            </form>
-                            <span>${contentUnit.likes} likes</span>
-                        </div>
-                    </#if>
                 </div>
             </div>
         </div>

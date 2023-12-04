@@ -10,10 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +31,28 @@ public class UserService {
         log.info("Saving new user with email: {}", email);
         userRepository.save(user);
         return true;
+    }
+
+    public void followUser(User currentUser, User userToFollow) {
+        currentUser.getFollowing().add(userToFollow);
+        userToFollow.getFollowers().add(currentUser);
+        userToFollow.setFollowersCount(userToFollow.getFollowersCount() + 1);
+        userRepository.save(currentUser);
+        userRepository.save(userToFollow);
+    }
+
+    public void unfollowUser(User currentUser, User userToUnfollow) {
+        currentUser.getFollowing().remove(userToUnfollow);
+        userToUnfollow.getFollowers().remove(currentUser);
+        userToUnfollow.setFollowersCount(userToUnfollow.getFollowersCount() - 1);
+        userRepository.save(currentUser);
+        userRepository.save(userToUnfollow);
+    }
+
+    public boolean isUserSubscribed(Long currentUserId, Long userIdToCheck) {
+        User currentUser = userRepository.findById(currentUserId).orElse(null);
+        User userToCheck = userRepository.findById(userIdToCheck).orElse(null);
+        return currentUser.getFollowing().contains(userToCheck);
     }
 
     public List<User> list() {
@@ -68,5 +87,9 @@ public class UserService {
     public User getUserByPrincipal(Principal principal) {
         if (principal == null) return new User();
         return userRepository.findByEmail(principal.getName());
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

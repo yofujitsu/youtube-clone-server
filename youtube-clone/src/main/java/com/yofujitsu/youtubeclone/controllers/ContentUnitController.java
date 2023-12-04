@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -45,15 +46,16 @@ public class ContentUnitController {
     }
 
     @PostMapping("/contentUnit/create")
-    public String createContentUnit(ContentUnit contentUnit, Principal principal, String url)
-            throws IOException {
+    public String createContentUnit(ContentUnit contentUnit, Principal principal, String url, RedirectAttributes redirectAttributes) {
         contentUnitService.saveContentUnit(principal, contentUnit, url);
+        redirectAttributes.addAttribute("id", contentUnitService.getUserByPrincipal(principal).getId());
         return "redirect:/profile";
     }
 
     @PostMapping("/contentUnit/delete")
-    public String deleteContentUnit(@RequestParam Long id) {
+    public String deleteContentUnit(@RequestParam Long id, RedirectAttributes redirectAttributes) {
         contentUnitService.deleteContentUnit(id);
+        redirectAttributes.addAttribute("id", contentUnitService.getContentUnitById(id).getUser().getId());
         return "redirect:/profile";
     }
 
@@ -82,12 +84,13 @@ public class ContentUnitController {
     }
 
     @PostMapping("/contentUnit/edit")
-    public String updateContentUnit(@RequestParam Long id, Principal principal, @ModelAttribute ContentUnit updatedContentUnit) {
+    public String updateContentUnit(@RequestParam Long id, Principal principal, @ModelAttribute ContentUnit updatedContentUnit, RedirectAttributes redirectAttributes) {
         ContentUnit contentUnit = contentUnitService.getContentUnitById(id);
         contentUnit.setThumbnailUrl(updatedContentUnit.getThumbnailUrl());
         contentUnit.setTitle(updatedContentUnit.getTitle());
         contentUnit.setDescription(updatedContentUnit.getDescription());
         contentUnitRepository.save(contentUnit);
+        redirectAttributes.addAttribute("id", contentUnit.getUser().getId());
         return "redirect:/profile";
     }
 }

@@ -38,7 +38,7 @@
             </a>
             <#if user.email??>
                 <div class="dropdown text-end">
-                    <a href="/profile">
+                    <a href="/profile?id=${user.id}">
                         <img src="/static/images/avatar.jpg" alt="mdo"
                              width="32" height="32" class="rounded-circle">
                     </a>
