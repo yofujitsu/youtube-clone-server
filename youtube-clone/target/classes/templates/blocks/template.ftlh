@@ -28,7 +28,7 @@
                 color: white;
             }
         </style>
-        <title>Youtube 2.0</title>
+        <b><title>Youtube 2.0</title></b>
     </head>
     <body>
     <nav class="navbar bg-dark">

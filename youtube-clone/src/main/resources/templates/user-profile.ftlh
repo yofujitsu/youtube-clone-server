@@ -3,7 +3,8 @@
     <h3 style="text-align: center">Профиль <#if currentUser.id == user.id>${currentUser.name}
     <#else>${user.name}</#if></h3>
     <h5 style="text-align: center"><#if currentUser.id == user.id>${currentUser.followersCount} подписчиков
-        <#else>${user.followersCount} подписчиков</#if></h5>
+        <#else>${user.followersCount} подписчиков</#if> | <#if currentUser.id == user.id>${currentUser.watchesCount} просмотров
+        <#else>${user.watchesCount} просмотров</#if></h5>
     <hr>
     <div style="text-align: center">
         <img src="/static/images/avatar.jpg"

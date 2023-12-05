@@ -28,9 +28,16 @@ public class User implements UserDetails {
     private String name;
     private boolean active;
     private int followersCount;
+    private int watchesCount;
+    @ManyToMany
+    @JoinTable(
+            name = "user_liked_videos",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "video_id")
+    )
+    private Set<ContentUnit> liked_videos = new HashSet<>();
     @ManyToMany(mappedBy = "following")
     private Set<User> followers = new HashSet<>();
-
     @ManyToMany
     @JoinTable(
             name = "user_following",
@@ -55,6 +62,7 @@ public class User implements UserDetails {
     @PrePersist
     private void init(){
         followersCount = 0;
+        watchesCount = 0;
         dateOfCreated = LocalDateTime.now();
     }
 
@@ -123,6 +131,7 @@ public class User implements UserDetails {
                 ", roles=" + roles +
                 ", dateOfCreated=" + dateOfCreated +
                 ", followersCount=" + followersCount +
+                ", watchesCount=" + watchesCount +
                 '}';
     }
 }

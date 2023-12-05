@@ -60,7 +60,12 @@
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
-                    alert("Изменения сохранены успешно!");
+                    if (xhr.status === 200) {
+                        alert("Изменения сохранены успешно!");
+                    }
+                    else {
+                        alert("Изменения сохранены успешно!");
+                    }
                 }
             };
         });

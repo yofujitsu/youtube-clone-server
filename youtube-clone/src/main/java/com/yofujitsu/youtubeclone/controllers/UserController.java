@@ -1,5 +1,6 @@
 package com.yofujitsu.youtubeclone.controllers;
 
+import com.yofujitsu.youtubeclone.dao.entities.ContentUnit;
 import com.yofujitsu.youtubeclone.dao.entities.User;
 import com.yofujitsu.youtubeclone.dao.repositories.UserRepository;
 import com.yofujitsu.youtubeclone.services.ContentUnitService;
@@ -48,14 +49,6 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/user/{user}")
-    public String userInfo(@PathVariable("user") User user, Model model, Principal principal) {
-        model.addAttribute("user", user);
-        model.addAttribute("userByPrincipal", userService.getUserByPrincipal(principal));
-        model.addAttribute("videos", user.getVideos());
-        return "user-info";
-    }
-
     @GetMapping("/profile")
     public String profile(@RequestParam Long id, Principal principal,
                           Model model) {
@@ -68,6 +61,7 @@ public class UserController {
         boolean isUserSubscribed = userService.isUserSubscribed(currentUser.getId(), user.getId());
         // Передача isUserSubscribed в модель для использования в представлении
         model.addAttribute("isUserSubscribed", isUserSubscribed);
+        userService.getAllWatches(user);
         return "user-profile";
     }
 
@@ -78,13 +72,28 @@ public class UserController {
         log.info("current user: {}; userToFollow: {}; userToFollowFromRequest: {}", currentUser.getId(), userToFollow.getId(), userIdToFollow);
         if (!currentUser.equals(userToFollow) && !userService.isUserSubscribed(currentUser.getId(), userIdToFollow)) {
             userService.followUser(currentUser, userToFollow);
-            System.out.println("ПОДПИСАЛСЯ!!!!!!!!!!!!!!!!");
         }
         else if(!currentUser.equals(userToFollow) && userService.isUserSubscribed(currentUser.getId(), userIdToFollow)) {
             userService.unfollowUser(currentUser, userToFollow);
-            System.out.println("ОТПИСАЛСЯ!!!!!!!!!!!!!!!!");
         }
         redirectAttributes.addAttribute("id", userToFollow.getId());
         return "redirect:/profile";
+    }
+
+    @PostMapping("/contentUnit/like")
+    public String likeVideo(@RequestParam("videoId") Long videoId, Principal principal, RedirectAttributes redirectAttributes) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        User currentUser = userService.getUserByPrincipal(principal);
+        ContentUnit contentUnit = contentUnitService.getContentUnitById(videoId);
+        if (!currentUser.getLiked_videos().contains(contentUnit)) {
+            userService.likeVideo(currentUser, contentUnit);
+        }
+        else {
+            userService.dislikeVideo(currentUser, contentUnit);
+        }
+        redirectAttributes.addAttribute("id", contentUnit.getId());
+        return "redirect:/contentUnit";
     }
 }

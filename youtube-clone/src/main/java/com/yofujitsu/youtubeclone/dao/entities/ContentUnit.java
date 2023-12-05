@@ -60,13 +60,6 @@ public class ContentUnit {
         }
     }
 
-    public void incrementLikes() {
-        this.likes++;
-    }
-
-    public void decrementLikes() {
-        this.likes--;
-    }
 
     @Override
     public String toString() {
@@ -76,7 +69,6 @@ public class ContentUnit {
                 ", description='" + description + '\'' +
                 ", dateOfCreated=" + dateOfCreated +
                 ", watches=" + watches +
-                ", likes=" + likes +
                 ", thumbnailUrl='" + thumbnailUrl + '\'' +
                 '}';
     }

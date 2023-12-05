@@ -1,7 +1,9 @@
 package com.yofujitsu.youtubeclone.services;
 
+import com.yofujitsu.youtubeclone.dao.entities.ContentUnit;
 import com.yofujitsu.youtubeclone.dao.entities.User;
 import com.yofujitsu.youtubeclone.dao.entities.enums.Role;
+import com.yofujitsu.youtubeclone.dao.repositories.ContentUnitRepository;
 import com.yofujitsu.youtubeclone.dao.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class UserService {
+    @Autowired
+    private ContentUnitRepository contentUnitRepository;
     @Autowired
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -49,10 +53,32 @@ public class UserService {
         userRepository.save(userToUnfollow);
     }
 
+    public void likeVideo(User currentUser, ContentUnit contentUnit) {
+        currentUser.getLiked_videos().add(contentUnit);
+        contentUnit.setLikes(contentUnit.getLikes() + 1);
+        userRepository.save(currentUser);
+        contentUnitRepository.save(contentUnit);
+    }
+
+    public void dislikeVideo(User currentUser, ContentUnit contentUnit) {
+        currentUser.getLiked_videos().remove(contentUnit);
+        contentUnit.setLikes(contentUnit.getLikes() - 1);
+        userRepository.save(currentUser);
+        contentUnitRepository.save(contentUnit);
+    }
+
     public boolean isUserSubscribed(Long currentUserId, Long userIdToCheck) {
         User currentUser = userRepository.findById(currentUserId).orElse(null);
         User userToCheck = userRepository.findById(userIdToCheck).orElse(null);
         return currentUser.getFollowing().contains(userToCheck);
+    }
+
+    public void getAllWatches(User user) {
+        user.setWatchesCount(0);
+        for (ContentUnit v : user.getVideos()) {
+            user.setWatchesCount(user.getWatchesCount() + v.getWatches());
+        }
+        userRepository.save(user);
     }
 
     public List<User> list() {
